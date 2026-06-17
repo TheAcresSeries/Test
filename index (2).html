@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Acres Series — Shane Michael Quaker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:   #2a4f24;
+      --green-lt:#3d7033;
+      --amber:   #c8903a;
+      --amber-lt:#e8b870;
+      --dark:    #111a0e;
+      --cream:   #f4efe3;
+      --cream-dk:#e8dfc8;
+      --mist:    rgba(244,239,227,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 3rem;
+      background: rgba(17,26,14,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200,144,58,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream-dk);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--amber-lt); }
+
+    /* ─── HERO ────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 7rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* layered background: radial glow + grain */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(42,79,36,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(200,144,58,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* animated firefly dots */
+    .fireflies {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ff {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--amber-lt);
+      opacity: 0;
+      animation: fly 8s infinite ease-in-out;
+    }
+
+    @keyframes fly {
+      0%   { opacity: 0;   transform: translate(0, 0); }
+      30%  { opacity: 0.7; }
+      70%  { opacity: 0.4; }
+      100% { opacity: 0;   transform: translate(var(--tx), var(--ty)); }
+    }
+
+    .ff:nth-child(1)  { top:20%; left:10%; --tx:40px;  --ty:-60px; animation-delay:0s;   animation-duration:7s; }
+    .ff:nth-child(2)  { top:60%; left:80%; --tx:-30px; --ty:-80px; animation-delay:1s;   animation-duration:9s; }
+    .ff:nth-child(3)  { top:35%; left:65%; --tx:20px;  --ty:50px;  animation-delay:2s;   animation-duration:6s; }
+    .ff:nth-child(4)  { top:75%; left:25%; --tx:60px;  --ty:-40px; animation-delay:3.5s; animation-duration:8s; }
+    .ff:nth-child(5)  { top:15%; left:50%; --tx:-50px; --ty:60px;  animation-delay:0.5s; animation-duration:10s;}
+    .ff:nth-child(6)  { top:85%; left:60%; --tx:-20px; --ty:-70px; animation-delay:4s;   animation-duration:7s; }
+    .ff:nth-child(7)  { top:50%; left:15%; --tx:70px;  --ty:30px;  animation-delay:2.5s; animation-duration:9s; }
+    .ff:nth-child(8)  { top:10%; left:85%; --tx:-60px; --ty:40px;  animation-delay:1.5s; animation-duration:8s; }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.4rem;
+      position: relative;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 9vw, 7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      position: relative;
+      animation: fadeUp 1s 0.15s ease both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--amber-lt);
+    }
+
+    .hero-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--amber);
+      margin: 2rem auto;
+      position: relative;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--cream-dk);
+      max-width: 520px;
+      position: relative;
+      animation: fadeUp 1s 0.45s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 2.8rem;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      animation: fadeUp 1s 0.6s ease both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2.2rem;
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: var(--dark);
+      border: 2px solid var(--amber);
+    }
+    .btn-primary:hover { background: var(--amber-lt); border-color: var(--amber-lt); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream);
+      border: 2px solid rgba(244,239,227,0.35);
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.45;
+      animation: fadeUp 1s 1s ease both;
+    }
+
+    .scroll-hint span {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ─── SECTION SHARED ──────────────────── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--amber);
+      margin-bottom: 1.6rem;
+    }
+
+    /* ─── BOOKS ───────────────────────────── */
+    .books-section {
+      background: linear-gradient(180deg, var(--dark) 0%, #0d1a0a 100%);
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .book-card {
+      background: rgba(244,239,227,0.04);
+      border: 1px solid rgba(200,144,58,0.18);
+      border-radius: 4px;
+      padding: 2.4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .book-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-lt), var(--amber));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .book-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200,144,58,0.45);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    }
+
+    .book-card:hover::before { transform: scaleX(1); }
+
+    .book-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(200,144,58,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+    }
+
+    .book-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.8rem;
+    }
+
+    .book-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+      color: var(--cream);
+    }
+
+    .book-setting {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: rgba(244,239,227,0.55);
+      margin-bottom: 1.2rem;
+    }
+
+    .book-desc {
+      font-size: 0.95rem;
+      color: rgba(244,239,227,0.78);
+      line-height: 1.7;
+    }
+
+    .book-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber-lt);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232,184,112,0.35);
+      padding-bottom: 2px;
+      transition: border-color 0.25s, color 0.25s;
+    }
+
+    .book-link:hover { color: var(--cream); border-color: var(--cream); }
+
+    /* ─── CHARACTERS ──────────────────────── */
+    .chars-section {
+      background: #0a1508;
+    }
+
+    .chars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .char-card {
+      padding: 1.6rem 1.4rem;
+      border: 1px solid rgba(244,239,227,0.08);
+      border-radius: 3px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .char-card:hover {
+      background: rgba(42,79,36,0.18);
+      border-color: rgba(200,144,58,0.25);
+    }
+
+    .char-initial {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--green-lt));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--amber-lt);
+      margin-bottom: 1rem;
+    }
+
+    .char-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .char-role {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.7rem;
+    }
+
+    .char-desc {
+      font-size: 0.88rem;
+      color: rgba(244,239,227,0.65);
+      line-height: 1.6;
+    }
+
+    /* ─── THEME BANNER ────────────────────── */
+    .theme-section {
+      background:
+        linear-gradient(135deg, rgba(42,79,36,0.7) 0%, rgba(17,26,14,0.95) 100%);
+      border-top: 1px solid rgba(200,144,58,0.2);
+      border-bottom: 1px solid rgba(200,144,58,0.2);
+    }
+
+    .theme-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .theme-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      line-height: 1.5;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    .theme-attr {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    /* ─── AUTHOR ──────────────────────────── */
+    .author-section {
+      background: var(--dark);
+    }
+
+    .author-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .author-avatar {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), #1a3318);
+      border: 3px solid rgba(200,144,58,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--amber);
+    }
+
+    .author-text .section-label { margin-bottom: 0.4rem; }
+
+    .author-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .author-bio {
+      font-size: 0.95rem;
+      color: rgba(244,239,227,0.75);
+      line-height: 1.8;
+    }
+
+    /* ─── FOOTER ──────────────────────────── */
+    footer {
+      background: #060d05;
+      border-top: 1px solid rgba(200,144,58,0.15);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--amber);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,239,227,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--amber-lt); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(244,239,227,0.3);
+    }
+
+    /* ─── SCREENPLAYS ─────────────────────── */
+    .screenplay-section {
+      background: #0a1508;
+    }
+
+    .screenplay-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .screenplay-card {
+      background: rgba(244,239,227,0.04);
+      border: 1px solid rgba(200,144,58,0.18);
+      border-radius: 4px;
+      padding: 2.4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Lora', serif;
+      color: inherit;
+    }
+
+    .screenplay-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-lt), var(--amber));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .screenplay-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200,144,58,0.45);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    }
+
+    .screenplay-card:hover::before { transform: scaleX(1); }
+
+    .screenplay-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(200,144,58,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+    }
+
+    .screenplay-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.8rem;
+    }
+
+    .screenplay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+      color: var(--cream);
+    }
+
+    .screenplay-status {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: rgba(244,239,227,0.55);
+      margin-bottom: 1.2rem;
+    }
+
+    .screenplay-desc {
+      font-size: 0.95rem;
+      color: rgba(244,239,227,0.78);
+      line-height: 1.7;
+    }
+
+    .screenplay-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber-lt);
+      border-bottom: 1px solid rgba(232,184,112,0.35);
+      padding-bottom: 2px;
+      transition: border-color 0.25s, color 0.25s;
+    }
+
+    .screenplay-card:hover .screenplay-link { color: var(--cream); border-color: var(--cream); }
+
+    /* ─── SCREENPLAY VIEWER OVERLAY ───────── */
+    .screenplay-viewer {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: var(--dark);
+      display: none;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .screenplay-viewer.is-open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .viewer-header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      background: rgba(17,26,14,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200,144,58,0.25);
+    }
+
+    .viewer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--amber-lt);
+      letter-spacing: 0.02em;
+    }
+
+    .viewer-title span {
+      color: rgba(244,239,227,0.45);
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-left: 0.8rem;
+    }
+
+    .viewer-close {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.4rem;
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--amber);
+      border: 2px solid var(--amber);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .viewer-close:hover {
+      background: var(--amber-lt);
+      border-color: var(--amber-lt);
+    }
+
+    .viewer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 3rem 2rem 6rem;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(42,79,36,0.25) 0%, transparent 70%),
+        var(--dark);
+    }
+
+    .viewer-page {
+      max-width: 680px;
+      margin: 0 auto;
+      background: rgba(244,239,227,0.03);
+      border: 1px solid rgba(200,144,58,0.15);
+      border-radius: 4px;
+      padding: 3rem 3.2rem;
+    }
+
+    .screenplay-text {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(244,239,227,0.88);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .viewer-footer-hint {
+      max-width: 680px;
+      margin: 1.5rem auto 0;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,239,227,0.3);
+    }
+
+    /* back-to-top */
+    .viewer-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: var(--dark);
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: background 0.25s;
+      z-index: 1001;
+    }
+
+    .viewer-top-btn.show { display: flex; }
+    .viewer-top-btn:hover { background: var(--amber-lt); }
+
+    /* ─── RESPONSIVE ──────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .author-inner { grid-template-columns: 1fr; text-align: center; }
+      .author-avatar { margin: 0 auto; }
+      .section-divider { margin: 0 auto 1.6rem; }
+      .viewer-page { padding: 2rem 1.4rem; }
+      .viewer-header { padding: 1rem 1.2rem; }
+      .viewer-title span { display: block; margin-left: 0; margin-top: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">The Acres Series</a>
+  <ul class="nav-links">
+    <li><a href="#books">Books</a></li>
+    <li><a href="#characters">Characters</a></li>
+    <li><a href="#screenplays">Screenplays</a></li>
+    <li><a href="#author">Author</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="fireflies">
+    <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+    <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+    <div class="ff"></div><div class="ff"></div>
+  </div>
+  <p class="hero-eyebrow">A trilogy by Shane Michael Quaker</p>
+  <h1 class="hero-title">The <em>Acres</em><br>Series</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-tagline">Some minds travel through time. One girl travels through them all.</p>
+  <div class="hero-cta">
+    <a href="#books" class="btn btn-primary">Explore the Books</a>
+    <a href="#characters" class="btn btn-ghost">Meet the Characters</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section class="books-section" id="books">
+  <div class="section-inner">
+    <p class="section-label">The Trilogy</p>
+    <h2 class="section-title">Three Books.<br>One Unforgettable Journey.</h2>
+    <div class="section-divider"></div>
+
+    <div class="books-grid">
+
+      <div class="book-card">
+        <div class="book-number">I</div>
+        <p class="book-tag">Book One</p>
+        <h3 class="book-title">Acres</h3>
+        <p class="book-setting">Gettysburg, Pennsylvania</p>
+        <p class="book-desc">Alicia is a sharp-witted teenager with an extraordinary gift: she can slip inside the consciousness of anyone — living or long dead. From her treehouse on the acres, she mind-travels into Russell and Abigail, two siblings navigating life in 19th-century Gettysburg. Between past-life visits, she navigates family mayhem, first love, and the mystery of who vandalized the school windows with Poe.</p>
+        <a href="#" class="book-link">Learn More →</a>
+      </div>
+
+      <div class="book-card">
+        <div class="book-number">II</div>
+        <p class="book-tag">Book Two</p>
+        <h3 class="book-title">Scar</h3>
+        <p class="book-setting">Savannah, Georgia</p>
+        <p class="book-desc">The family road trips eleven hours South to Savannah. Alicia's mind-travel abilities deepen as she explores the city's haunted past and discovers the ghost of Emma Lou Riley — known by the daisies always tucked into her hair — wandering cousin Daphne's historic home. Meanwhile, Michael and his friends face the consequences of their Poe-inspired school prank in a York County courtroom.</p>
+        <a href="#" class="book-link">Learn More →</a>
+      </div>
+
+      <div class="book-card">
+        <div class="book-number">III</div>
+        <p class="book-tag">Book Three</p>
+        <h3 class="book-title">Arc</h3>
+        <p class="book-setting">Gettysburg, Pennsylvania</p>
+        <p class="book-desc">Back on the acres for the Fourth of July, Alicia reunites with Daphne as summer reaches its peak. The visits to Russell and Abigail turn dangerous — leading to a breathtaking climax in an underground crystal cave where Russell's courage is tested beyond its limit. When the final page turns, the boundary between past and present may never be the same again.</p>
+        <a href="#" class="book-link">Learn More →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THEME QUOTE -->
+<section class="theme-section">
+  <div class="theme-inner">
+    <p class="theme-quote">"Mind-traveling can be so boring sometimes. Watching people fish is not my cup of tea. At least the acres look nice."</p>
+    <p class="theme-attr">— Alicia, Acres: Book One</p>
+  </div>
+</section>
+
+<!-- CHARACTERS -->
+<section class="chars-section" id="characters">
+  <div class="section-inner">
+    <p class="section-label">The Cast</p>
+    <h2 class="section-title">Characters</h2>
+    <div class="section-divider"></div>
+
+    <div class="chars-grid">
+
+      <div class="char-card">
+        <div class="char-initial">A</div>
+        <h4 class="char-name">Alicia</h4>
+        <p class="char-role">Narrator · Mind-Traveler</p>
+        <p class="char-desc">Sharp, sarcastic, and perceptive. Her extraordinary ability to enter other people's consciousness makes her witness to history — whether she wants to be or not.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">R</div>
+        <h4 class="char-name">Russell</h4>
+        <p class="char-role">19th Century · The Acres</p>
+        <p class="char-desc">A stubborn, funny boy who can't spell his own name but would walk into the earth itself to protect his sister. Alicia's favorite mind-travel host.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">Ab</div>
+        <h4 class="char-name">Abigail</h4>
+        <p class="char-role">19th Century · The Acres</p>
+        <p class="char-desc">Russell's quick-tongued younger sister. Smarter than anyone gives her credit for, and brave far beyond what her era would expect of her.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">M</div>
+        <h4 class="char-name">Mason</h4>
+        <p class="char-role">Alicia's Older Brother</p>
+        <p class="char-desc">Cool, unbothered, and master of the staring contest. He has exactly two modes: unbothered and winning.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">P</div>
+        <h4 class="char-name">Patrick</h4>
+        <p class="char-role">Alicia's Younger Brother</p>
+        <p class="char-desc">Enthusiastic, perpetually hungry, and a born negotiator who can extract concessions from his mother with alarming efficiency.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">Mi</div>
+        <h4 class="char-name">Michael</h4>
+        <p class="char-role">Love Interest</p>
+        <p class="char-desc">Thoughtful and quietly romantic. He wrote Edgar Allan Poe across the school windows — all for Alicia — and faced the consequences with dignity.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">D</div>
+        <h4 class="char-name">Daphne</h4>
+        <p class="char-role">Cousin · Savannah, GA</p>
+        <p class="char-desc">Fearless, hilarious, and an eager partner in ghost-hunting. She lives in a haunted house and treats it as a perk rather than a problem.</p>
+      </div>
+
+      <div class="char-card">
+        <div class="char-initial">E</div>
+        <h4 class="char-name">Emma "Daisy" Riley</h4>
+        <p class="char-role">Ghost · Savannah</p>
+        <p class="char-desc">Identified by the daisies always tucked into her hair. She wanders Daphne's historic Savannah home — and Alicia promises to plant seeds for her in the North too.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCREENPLAYS -->
+<section class="screenplay-section" id="screenplays">
+  <div class="section-inner">
+    <p class="section-label">From Page to Screen</p>
+    <h2 class="section-title">Screenplays</h2>
+    <div class="section-divider"></div>
+
+    <div class="screenplay-grid">
+
+      <button class="screenplay-card" onclick="openScreenplay('acres')">
+        <div class="screenplay-number">I</div>
+        <p class="screenplay-tag">Book One</p>
+        <h3 class="screenplay-title">Acres</h3>
+        <p class="screenplay-status">Full Draft</p>
+        <p class="screenplay-desc">The complete screenplay adaptation of Book One, opening on the creekside acres of Gettysburg as Alicia's mind-travels into Russell's world collide with summer mayhem on the home front.</p>
+        <span class="screenplay-link">Read Screenplay →</span>
+      </button>
+
+      <button class="screenplay-card" onclick="openScreenplay('scar')">
+        <div class="screenplay-number">II</div>
+        <p class="screenplay-tag">Book Two</p>
+        <h3 class="screenplay-title">Scar</h3>
+        <p class="screenplay-status">Full Draft</p>
+        <p class="screenplay-desc">The screenplay adaptation of Book Two, following the Averys' road trip to Savannah and the haunted mystery of the Three Fourteen that Alicia and Daphne race to uncover.</p>
+        <span class="screenplay-link">Read Screenplay →</span>
+      </button>
+
+      <button class="screenplay-card" onclick="openScreenplay('arc')">
+        <div class="screenplay-number">III</div>
+        <p class="screenplay-tag">Book Three</p>
+        <h3 class="screenplay-title">Arc</h3>
+        <p class="screenplay-status">In Development</p>
+        <p class="screenplay-desc">The screenplay adaptation of Book Three is currently in early development. Opening pages are available now, with the full draft following as the cave sequence comes to life on the page.</p>
+        <span class="screenplay-link">Read Opening Pages →</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCREENPLAY VIEWER OVERLAY -->
+<div class="screenplay-viewer" id="screenplayViewer">
+  <div class="viewer-header">
+    <p class="viewer-title" id="viewerTitle">Title<span id="viewerSubtitle"></span></p>
+    <button class="viewer-close" onclick="closeScreenplay()">✕ Close</button>
+  </div>
+  <div class="viewer-body" id="viewerBody">
+    <div class="viewer-page">
+      <pre class="screenplay-text" id="viewerText"></pre>
+    </div>
+    <p class="viewer-footer-hint">— End of available pages —</p>
+  </div>
+  <button class="viewer-top-btn" id="viewerTopBtn" onclick="scrollViewerTop()" title="Back to top">↑</button>
+</div>
+
+<script src="screenplay-acres.js"></script>
+<script src="screenplay-scar.js"></script>
+<script src="screenplay-arc.js"></script>
+<script>
+  const SCREENPLAY_META = {
+    acres: { title: 'Acres', subtitle: 'Book One · Screenplay' },
+    scar:  { title: 'Scar',  subtitle: 'Book Two · Screenplay' },
+    arc:   { title: 'Arc',   subtitle: 'Book Three · Screenplay (In Development)' }
+  };
+
+  function openScreenplay(key) {
+    const data = window['SCREENPLAY_' + key.toUpperCase()];
+    const meta = SCREENPLAY_META[key];
+    if (!data || !meta) return;
+
+    document.getElementById('viewerTitle').textContent = meta.title;
+    document.getElementById('viewerSubtitle').textContent = meta.subtitle;
+    document.getElementById('viewerText').textContent = data;
+
+    const viewer = document.getElementById('screenplayViewer');
+    viewer.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('viewerBody').scrollTop = 0;
+  }
+
+  function closeScreenplay() {
+    const viewer = document.getElementById('screenplayViewer');
+    viewer.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function scrollViewerTop() {
+    document.getElementById('viewerBody').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Esc key closes the viewer
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeScreenplay();
+  });
+
+  // Show/hide back-to-top button based on scroll position
+  document.addEventListener('DOMContentLoaded', function () {
+    const body = document.getElementById('viewerBody');
+    const btn = document.getElementById('viewerTopBtn');
+    body.addEventListener('scroll', function () {
+      if (body.scrollTop > 600) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+  });
+</script>
+
+<!-- AUTHOR -->
+<section class="author-section" id="author">
+  <div class="author-inner">
+    <div class="author-avatar">SQ</div>
+    <div class="author-text">
+      <p class="section-label">About the Author</p>
+      <h2 class="author-name">Shane Michael Quaker</h2>
+      <div class="section-divider"></div>
+      <p class="author-bio">Shane Michael Quaker is the author of The Acres Series, a coming-of-age trilogy set in Gettysburg, Pennsylvania and Savannah, Georgia. The series follows Alicia, a teenager with the rare ability to mind-travel through time and consciousness, as she uncovers history, family secrets, and the mysteries of the acres she calls home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">The Acres Series</p>
+  <ul class="footer-links">
+    <li><a href="#books">Books</a></li>
+    <li><a href="#characters">Characters</a></li>
+    <li><a href="#screenplays">Screenplays</a></li>
+    <li><a href="#author">Author</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Shane Michael Quaker. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
